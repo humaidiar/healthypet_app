@@ -8,7 +8,6 @@ import 'package:healthypet_app/screens/detail_screen.dart';
 
 import '../models/service_model.dart';
 
-var selectedService = 0; // hard-code for navigatorbottom icon
 var menus = {
   FeatherIcons.home,
   FeatherIcons.heart,
@@ -16,8 +15,33 @@ var menus = {
   FeatherIcons.user,
 };
 
-class HomeScreen extends StatelessWidget {
+const activeColorBG = Color(0xFF818AF9);
+const activeColorFont = Colors.white;
+
+const deactiveColorBG = Color(0xFFF6F6F6);
+const deactiveColorFont = Color(0xFF3F3E3F);
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Color nonactiveBG = deactiveColorBG;
+  Color activeBG = activeColorBG;
+  Color nonactiveFont = deactiveColorFont;
+  Color activeFont = activeColorFont;
+
+  // Update Color selected Services
+  int selectedServiceIndex = -1; // making state all default (non-active)
+  void updateColor(int index) {
+    setState(() {
+      selectedServiceIndex = index;
+    });
+  }
+  //------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -185,32 +209,38 @@ class HomeScreen extends StatelessWidget {
     return SizedBox(
       height: 45,
       child: ListView.separated(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                    color: selectedService == index
-                        ? const Color(0xFF818AF9)
-                        : const Color(0xFFF6F6F6),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                    // Could be used buttonStyle
-                    child: Text(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          //put consition for selected
+          bool isSelected = selectedServiceIndex == index;
+
+          return GestureDetector(
+            onTap: () {
+              updateColor(index);
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              decoration: BoxDecoration(
+                color: isSelected ? activeBG : nonactiveBG,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: Text(
                   Service.all()[index],
                   style: GoogleFonts.manrope(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: selectedService == index
-                        ? Colors.white
-                        : const Color(0xFF3F3E3F).withOpacity(0.3),
+                    color: isSelected ? activeFont : nonactiveFont,
                   ),
-                )),
+                ),
               ),
-          separatorBuilder: (context, index) => const SizedBox(
-                width: 12,
-              ),
-          itemCount: Service.all().length),
+            ),
+          );
+        },
+        separatorBuilder: (context, index) => const SizedBox(width: 12),
+        itemCount: Service.all().length,
+      ),
     );
   }
 
