@@ -18,17 +18,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
-                FeatherIcons.arrowLeftCircle,
+                FeatherIcons.chevronLeft,
                 color: Colors.black.withOpacity(0.2),
                 size: 35,
               ),
-              const SizedBox(width: 10),
               Text(
                 'Back',
                 style: TextStyle(
                   fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black.withOpacity(0.5),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black.withOpacity(0.3),
                 ),
               ),
             ],

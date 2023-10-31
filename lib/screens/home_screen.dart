@@ -61,11 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 22,
               ),
-              cardDisplay(),
+              searchBar(),
               const SizedBox(
                 height: 22,
               ),
-              searchBar(),
+              cardDisplay(),
               const SizedBox(
                 height: 22,
               ),
@@ -123,82 +123,103 @@ class _HomeScreenState extends State<HomeScreen> {
                   blurRadius: 30,
                   offset: const Offset(0, 2))
             ]),
-        child: Row(
+        child: Column(
           children: [
-            Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-              child: Image.asset(
-                'assets/images/${doctorModel.image}',
-                width: 88,
-                height: 90,
-              ),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Flexible(
-              // use for in tight spacing , column
-              fit: FlexFit.tight,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    doctorModel.name,
-                    style: GoogleFonts.manrope(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF3F3E3F)),
+            Row(
+              children: [
+                Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  child: Image.asset(
+                    'assets/images/${doctorModel.image}',
+                    width: 88,
+                    height: 90,
                   ),
-                  const SizedBox(
-                    height: 7,
-                  ),
-                  RichText(
-                      text: TextSpan(
-                          text: "Service: ${doctorModel.services.join(', ')}",
-                          style: GoogleFonts.manrope(
-                              fontSize: 12, color: Colors.black))),
-                  const SizedBox(
-                    height: 7,
-                  ),
-                  Row(
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Flexible(
+                  // use for in tight spacing , column
+                  fit: FlexFit.tight,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(
-                        FeatherIcons.mapPin,
-                        size: 10,
-                        color: Color(0xFFACA3A3),
-                      ),
-                      const SizedBox(width: 7),
                       Text(
-                        "${doctorModel.distance} km",
+                        doctorModel.name,
                         style: GoogleFonts.manrope(
-                            fontSize: 12, color: const Color(0xFFACA3A3)),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFF3F3E3F)),
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      RichText(
+                          text: TextSpan(
+                              text:
+                                  "Service: ${doctorModel.services.join(', ')}",
+                              style: GoogleFonts.manrope(
+                                  fontSize: 12, color: Colors.black))),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            FeatherIcons.mapPin,
+                            size: 10,
+                            color: Color(0xFFACA3A3),
+                          ),
+                          const SizedBox(width: 7),
+                          Text(
+                            "${doctorModel.distance} km",
+                            style: GoogleFonts.manrope(
+                                fontSize: 12, color: const Color(0xFFACA3A3)),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Available for",
+                            style: GoogleFonts.manrope(
+                                fontSize: 12,
+                                color: const Color(0xFF50CC98),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const Spacer(),
+                          SvgPicture.asset('assets/svgs/cat.svg'),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          SvgPicture.asset('assets/svgs/dog.svg')
+                        ],
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
+            OutlinedButton(
+                onPressed: () {},
+                style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        "Available for",
-                        style: GoogleFonts.manrope(
-                            fontSize: 12,
-                            color: const Color(0xFF50CC98),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      SvgPicture.asset('assets/svgs/cat.svg'),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      SvgPicture.asset('assets/svgs/dog.svg')
-                    ],
-                  )
-                ],
-              ),
-            )
+                  foregroundColor: activeColorBG,
+                  minimumSize: const Size.fromHeight(50),
+                  side: const BorderSide(
+                    color: activeColorBG,
+                  ),
+                ),
+                child: const Text("Book")),
+            const SizedBox(height: 10),
           ],
         ),
       ),
